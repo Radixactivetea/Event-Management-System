@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Event Management System</string>
+    <string name="task">Task</string>
+    <string name="login">Login</string>
+    <string name="add_new_task">Add New Task</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="username">Username</string>
+    <string name="password">password</string>
+    <string name="loginbtn">Login</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="orediacc">Already Have An Account</string>
+    <string name="name">Full Name</string>
+    <string name="event">Event</string>
+    <string name="create_new_event">Create New Event</string>
+    <string name="event_Big">EVENTS</string>
+    <string name="no_event">NO EVENT YET</string>
+</resources>
