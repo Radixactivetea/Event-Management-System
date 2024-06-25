@@ -89,8 +89,7 @@ fun TaskPage(
                     tint = Color.LightGray
                 )
             }
-        },
-        modifier = Modifier.background(color = Color.White)
+        }
     ) { innerPadding ->
         TaskBody(
             tasksList = tasks,

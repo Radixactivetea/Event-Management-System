@@ -1,5 +1,6 @@
 package com.example.eventmanagementsystem.ui.taskManagement
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -44,7 +45,8 @@ fun AddTaskPage(
             EventManagementTopAppBar(
                 title = stringResource(AddTaskDestination.titleRes),
                 canNavigateBack = canNavigateBack,
-                navigateUp = navigateBack
+                navigateUp = navigateBack,
+                modifier = Modifier.background(Color.White)
             )
         }
     ) {innerPadding ->
@@ -53,7 +55,8 @@ fun AddTaskPage(
             onNavigateUp = onNavigateUp,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(innerPadding),
+                .padding(innerPadding)
+                .background(color = Color.White),
             eventId
         )
     }
