@@ -15,9 +15,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -37,7 +37,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -45,36 +44,42 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.lifecycle.LiveData
 import com.example.eventmanagementsystem.EventManagementTopAppBar
 import com.example.eventmanagementsystem.R
 import com.example.eventmanagementsystem.database.Task
+import com.example.eventmanagementsystem.ui.eventManagement.DetailEventDestination
 import com.example.eventmanagementsystem.ui.navigation.NavigationDestination
 
 object TaskPageDestination: NavigationDestination {
     override val route = "task"
     override val titleRes = R.string.task
+    const val eventIdArg = "eventId"
+    val routeWithArgs = "$route/{$eventIdArg}"
 }
 
 @Composable
 fun TaskPage(
-    navigateToAddTask: () -> Unit,
-    //navigateBackToEvent: () -> Unit,
+    navigateToAddTask: (Int) -> Unit,
+    navigateBack: () -> Unit,
+    eventId: Int,
     viewModel: TaskViewModel,
     modifier: Modifier = Modifier
 ) {
-    val tasks by viewModel.tasksList.observeAsState(emptyList())
+    val tasks by viewModel.tasksList(eventId).observeAsState(emptyList())
+
+    println(eventId)
 
     Scaffold(
         topBar = {
             EventManagementTopAppBar(
                 title = stringResource(TaskPageDestination.titleRes),
-                canNavigateBack = false
+                canNavigateBack = true,
+                navigateUp = navigateBack
             )
         },
         floatingActionButton ={
             FloatingActionButton(
-                onClick = navigateToAddTask,
+                onClick = { navigateToAddTask(eventId) },
                 containerColor = Color(0xFF274D76)
             ) {
                 Icon(
@@ -179,7 +184,9 @@ fun TaskCard(
 
     var isComplete by remember { mutableStateOf(item.completed) }
 
-    Card (modifier = Modifier.padding(8.dp)) {
+    Card (
+        modifier = Modifier.padding(8.dp),
+        colors = CardDefaults.cardColors(Color(0xFFE9EDF1)),) {
         Row {
             Checkbox(
                 checked = isComplete,
@@ -227,6 +234,7 @@ fun TaskDetailDialog(
                 .fillMaxWidth()
                 .padding(16.dp),
             shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFD2E4FF))
         ) {
             Column (
                 modifier = Modifier.fillMaxWidth(),

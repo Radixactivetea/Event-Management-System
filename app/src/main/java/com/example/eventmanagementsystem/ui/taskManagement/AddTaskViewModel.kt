@@ -33,9 +33,9 @@ class AddTaskViewModel: ViewModel() {
         taskDueDate = newDueDate
     }
 
-    fun saveTask() {
+    fun saveTask(eventId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            taskDao.upsertTask(Task(title = taskTitle, note= taskNote, dueDate = taskDueDate))
+            taskDao.upsertTask(Task(eventId = eventId, title = taskTitle, note= taskNote, dueDate = taskDueDate))
         }
     }
 }

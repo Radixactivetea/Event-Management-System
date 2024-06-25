@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.eventmanagementsystem.MainApplication
+import com.example.eventmanagementsystem.database.Events
 import com.example.eventmanagementsystem.database.Task
 import com.example.eventmanagementsystem.database.User
 import kotlinx.coroutines.Dispatchers
@@ -18,11 +19,12 @@ import kotlinx.coroutines.launch
 
 class TaskViewModel() : ViewModel() {
 
-    val taskDao = MainApplication.Database.taskDao()
-    val tasksList: LiveData<List<Task>> = taskDao.getAllTasks()
+    private val taskDao = MainApplication.Database.taskDao()
 
+    fun tasksList (id: Int): LiveData<List<Task>> {
+        return taskDao.getAllTasks(id)
+    }
 
-    //val taskspec: User? = taskDao.getTaskById()
 
     fun deleteTask(taskId: Int) {
         viewModelScope.launch(Dispatchers.IO) {

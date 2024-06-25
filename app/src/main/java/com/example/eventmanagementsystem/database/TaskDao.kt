@@ -9,8 +9,8 @@ import androidx.room.Upsert
 @Dao
 interface TaskDao {
 
-    @Query("SELECT * FROM tasks")
-    fun getAllTasks(): LiveData<List<Task>>
+    @Query("SELECT * FROM tasks WHERE eventId = :eventId")
+    fun getAllTasks(eventId: Int): LiveData<List<Task>>
 
     @Upsert
     fun upsertTask(task: Task)

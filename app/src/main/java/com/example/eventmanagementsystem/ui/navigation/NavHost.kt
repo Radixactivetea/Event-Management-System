@@ -81,27 +81,40 @@ fun EventManagementNavHost(
                 navigateBack = { navController.navigateUp() },
                 //navigateToProfile = { navController.navigate(ProfilePageDestination.route) },
                 //navigateToNotifications = { navController.navigate(NotificationsPageDestination.route) },
-                //navigateToTask = { navController.navigate(TaskPageDestination.route) },
+                navigateToTask = { navController.navigate("${TaskPageDestination.route}/${it}") },
                 eventId = navController.currentBackStackEntry?.arguments?.getInt("eventId") ?: 0,
                 viewModel = eventDetailViewModel
             )
         }
 
-        composable(route = TaskPageDestination.route){
+        composable(
+            route = TaskPageDestination.routeWithArgs,
+            arguments = listOf(navArgument(TaskPageDestination.eventIdArg) {
+                type = NavType.IntType
+            })
+        ){
             val taskViewModel: TaskViewModel = viewModel()
 
             TaskPage(
-                navigateToAddTask = { navController.navigate(AddTaskDestination.route) },
+                navigateBack = { navController.navigateUp()},
+                navigateToAddTask = { navController.navigate("${AddTaskDestination.route}/${it}") },
+                eventId = navController.currentBackStackEntry?.arguments?.getInt("eventId") ?: 0,
                 viewModel = taskViewModel
             )
         }
 
-        composable(route = AddTaskDestination.route){
+        composable(
+            route = AddTaskDestination.routeWithArgs,
+            arguments = listOf(navArgument(AddTaskDestination.eventIdArg) {
+                type = NavType.IntType
+            })
+        ){
             val taskViewModel: AddTaskViewModel = viewModel()
 
             AddTaskPage(
                 onNavigateUp = { navController.popBackStack()},
                 navigateBack = { navController.navigateUp()},
+                eventId = navController.currentBackStackEntry?.arguments?.getInt("eventId") ?: 0,
                 viewModel = taskViewModel
             )
         }

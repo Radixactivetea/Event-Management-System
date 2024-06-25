@@ -15,4 +15,10 @@ class EventDetailViewModel() : ViewModel() {
     fun event (id: Int): LiveData<Events> {
         return eventDao.getEventById(id)
     }
+
+    fun deleteEvent(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            eventDao.deleteEvent(id)
+        }
+    }
 }

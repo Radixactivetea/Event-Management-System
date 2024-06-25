@@ -16,4 +16,7 @@ interface EventDao {
 
     @Upsert
     fun upsertEvent(events: Events)
+
+    @Query("DELETE FROM events WHERE id = :id")
+    fun deleteEvent(id: Int)
 }

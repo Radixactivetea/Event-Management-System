@@ -17,4 +17,5 @@
     <string name="create_new_event">Create New Event</string>
     <string name="event_Big">EVENTS</string>
     <string name="no_event">NO EVENT YET</string>
+    <string name="vendor">Vendor</string>
 </resources>

@@ -21,17 +21,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.eventmanagementsystem.EventManagementTopAppBar
 import com.example.eventmanagementsystem.R
+import com.example.eventmanagementsystem.ui.eventManagement.DetailEventDestination
 import com.example.eventmanagementsystem.ui.navigation.NavigationDestination
 
 object AddTaskDestination : NavigationDestination {
     override val route = "addTask"
     override val titleRes = R.string.add_new_task
+    const val eventIdArg = "eventId"
+    val routeWithArgs = "$route/{$eventIdArg}"
 }
 
 @Composable
 fun AddTaskPage(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
+    eventId: Int,
     canNavigateBack: Boolean = true,
     viewModel: AddTaskViewModel
 ) {
@@ -49,7 +53,8 @@ fun AddTaskPage(
             onNavigateUp = onNavigateUp,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(innerPadding)
+                .padding(innerPadding),
+            eventId
         )
     }
 }
@@ -58,7 +63,8 @@ fun AddTaskPage(
 fun AddTaskBody(
     viewModel: AddTaskViewModel,
     onNavigateUp: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    eventId: Int
 ){
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,7 +93,7 @@ fun AddTaskBody(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
-            viewModel.saveTask()
+            viewModel.saveTask(eventId = eventId)
             onNavigateUp()
         },
             shape = MaterialTheme.shapes.small,
