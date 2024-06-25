@@ -1,6 +1,7 @@
 package com.example.eventmanagementsystem.ui.taskManagement
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -88,7 +89,8 @@ fun TaskPage(
                     tint = Color.LightGray
                 )
             }
-        }
+        },
+        modifier = Modifier.background(color = Color.White)
     ) { innerPadding ->
         TaskBody(
             tasksList = tasks,
@@ -109,7 +111,7 @@ fun TaskBody(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.background(Color.White)
     ) {
         if (tasksList.isEmpty()) {
             Column (
